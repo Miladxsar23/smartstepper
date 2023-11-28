@@ -1,0 +1,33 @@
+{
+  "name": "smart-stepper-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/smart-stepper-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/smart-stepper-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "smart-stepper:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "smart-stepper:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "smart-stepper:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/smart-stepper-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "implicitDependencies": ["smart-stepper"],
+  "tags": []
+}

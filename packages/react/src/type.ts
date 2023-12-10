@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import {
+  Control,
   FieldValues,
   Resolver,
-  UseControllerReturn,
   UseFormGetValues,
   UseFormRegister,
   UseFormReset,
@@ -17,7 +17,7 @@ export interface ISmartStepperContextValue<T extends FieldValues> {
   setStepperFieldValues: UseFormSetValue<T>;
   stepperFieldResetter: UseFormReset<T>;
   canNavigateToNextStep(): Promise<boolean>;
-  useController(name: string): UseControllerReturn;
+  control: Control<T, T>;
 }
 
 export interface IStepProps {

@@ -1,8 +1,34 @@
 {
   "name": "@smartstepper",
-  "version": "0.0.1",
+  "private": true,
+  "description": "A React component for creating multi-step forms with validation and navigation control",
+  "version": "1.0.0",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "author": {
+    "name": "Milad shirian dehkordi",
+    "email": "milad.xsar72@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Miladxsar23/smartstepper"
+  },
+  "license": "MIT",
+  "keywords": [
+    "next",
+    "react",
+    "form",
+    "multi-step",
+    "validation",
+    "stepper",
+    "react stepper",
+    "navigation"
+  ],
+  "dependencies": {
+    "react-hook-form": "^7.48.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "exports": {
     ".": {
       "import": "./index.mjs",

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { HTMLAttributes, ReactElement } from 'react';
 import {
   Control,
   FieldValues,
@@ -10,7 +10,10 @@ import {
 } from 'react-hook-form';
 
 export interface ISmartStepperContextValue<T extends FieldValues> {
-  navigateToNextStep(skipStep?: string, unregister?: boolean): Promise<void>;
+  navigateToNextStep(
+    targetStepName?: string,
+    unregister?: boolean
+  ): Promise<void>;
   navigateToPreviousStep(): void;
   registerStepperFields: UseFormRegister<T>;
   getStepperFieldValues: UseFormGetValues<T>;
@@ -19,17 +22,25 @@ export interface ISmartStepperContextValue<T extends FieldValues> {
   canNavigateToNextStep(): Promise<boolean>;
   control: Control<T, T>;
 }
-
 export interface IStepProps {
   stepName: string;
   fieldsForValidation: string[];
   children: React.ReactNode;
 }
 export type TStepType = ReactElement<IStepProps>;
-export interface IStepFormProps<T extends FieldValues = FieldValues> {
+export interface IStepFormProps<T extends FieldValues = FieldValues>
+  extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
   onSubmit?: (data: T) => void;
   resolver: Resolver<T>;
-  children: TStepType[] | TStepType;
+  children: TStepType | TStepType[];
   changeStepScrollMode?: 'page' | 'step';
   className?: string;
 }
+
+interface ISmartStepperSchema<K> {
+  stepName: string;
+  fieldsForValidation: K[];
+  component: ReactElement;
+}
+
+export type TSmartStepperSchema<K> = ISmartStepperSchema<K>[];

@@ -1,12 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
 
-import NxWelcome from './nx-welcome';
+import ExampleForm from "../components/Example1-form";
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="smart-stepper" />
+      <ExampleForm  />
     </div>
   );
 }

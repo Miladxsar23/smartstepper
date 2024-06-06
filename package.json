@@ -5,11 +5,13 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@swc/helpers": "~0.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.48.2",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

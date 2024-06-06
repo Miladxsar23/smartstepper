@@ -2,21 +2,24 @@ import {
   Children,
   FormEvent,
   ReactElement,
+  isValidElement,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 import {
   Control,
+  ControllerProps,
   FieldValues,
   Path,
+  Controller as ReactHookFormController,
   UseFormGetValues,
   UseFormRegister,
   UseFormReset,
   UseFormSetValue,
   useForm,
 } from 'react-hook-form';
-import { useScroll } from '../hook';
+import { useScroll, useSmartStepper } from '../hook';
 import { IStepFormProps, IStepProps } from '../type';
 import SmartStepperContext from './smart-stepper-context';
 
@@ -24,8 +27,8 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
   onSubmit,
   children,
   resolver,
-  className,
   changeStepScrollMode = 'step',
+  ...rest
 }: IStepFormProps<T>) => {
   const {
     trigger,
@@ -41,12 +44,12 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
   });
   // hooks
   const [step, setStep] = useState<number>(0);
+  const [historyStack, setHistoryStack] = useState<number[]>([]);
   const {
     scrollRef: stepScrollRef,
     handleScrollOnElement,
     handleScrollToTopOfPage,
   } = useScroll<HTMLDivElement>();
-  const [historyStack, setHistoryStack] = useState<number[]>([]);
   useEffect(() => {
     const timer = setTimeout(() => {
       if (stepScrollRef && changeStepScrollMode === 'step') {
@@ -64,10 +67,13 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     changeStepScrollMode,
   ]);
   // calculated data
-  const stepChildren = useMemo(
-    () => Children.toArray(children) as ReactElement<IStepProps>[],
-    [children]
-  );
+  const stepChildren = useMemo(() => {
+    const childrenArr = Children.toArray(children);
+    if (childrenArr.some((c) => !isValidElement(c) || c.type !== Step)) {
+      throw new Error('SmartStepper only accepts Step components as children.');
+    }
+    return Children.toArray(children) as ReactElement<IStepProps>[];
+  }, [children]);
   const names: Readonly<string[]> = useMemo(
     () =>
       stepChildren.map((child) => {
@@ -79,7 +85,6 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     () => stepChildren[step]?.props.fieldsForValidation || [],
     [step, stepChildren]
   );
-
   // methods
   const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
@@ -90,18 +95,15 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
       }
     }
   };
-  const handleCheckKeyDown = (evt: React.KeyboardEvent<HTMLFormElement>) => {
-    if (evt.key === 'Enter') evt.preventDefault();
-  };
   const handleNextStep = async (
-    skipStep?: (typeof names)[number],
+    targetStepName?: (typeof names)[number],
     unregister?: boolean
   ) => {
-    if (skipStep) {
+    if (targetStepName) {
       if (unregister) {
         unregisterFn(stepFieldsMemo as Path<T>[]);
       }
-      setStep(names.indexOf(skipStep));
+      setStep(names.indexOf(targetStepName));
       setHistoryStack((prevHistory) => {
         if (prevHistory.some((h) => h === step)) {
           return prevHistory;
@@ -127,7 +129,7 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     }
   };
 
-  const handlePreviousStep = () => {
+  const handlePreviousStep = ()  => {
     if (historyStack.length !== 0) {
       const prevStep = historyStack[historyStack.length - 1];
       unregisterFn(stepFieldsMemo as Path<T>[]);
@@ -161,12 +163,8 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
       }}
     >
       <div ref={stepScrollRef}>
-        {/* forms */}
-        <form
-          onSubmit={handleSubmit}
-          onKeyDown={handleCheckKeyDown}
-          className={className && className}
-        >
+        {/* form */}
+        <form onSubmit={handleSubmit} {...rest}>
           {renderStep()}
         </form>
       </div>
@@ -177,4 +175,16 @@ const Step = ({ children }: IStepProps) => {
   return children;
 };
 
-export default Object.assign(SmartStepper, { Step: Step });
+const Controller = (props: Omit<ControllerProps, 'control'>) => {
+  const { control } = useSmartStepper();
+  return (
+    <ReactHookFormController
+      control={control}
+      {...props}
+    />
+  );
+};
+export default Object.assign(SmartStepper, {
+  Step: Step,
+  Controller: Controller,
+});

@@ -15,6 +15,7 @@ export interface ISmartStepperContextValue<T extends FieldValues> {
     unregister?: boolean
   ): Promise<void>;
   navigateToPreviousStep(): void;
+  navigateToPreviousStepWithTargetStep(targetStepName: string): void;
   registerStepperFields: UseFormRegister<T>;
   getStepperFieldValues: UseFormGetValues<T>;
   setStepperFieldValues: UseFormSetValue<T>;

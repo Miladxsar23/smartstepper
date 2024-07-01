@@ -74,17 +74,34 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     }
     return Children.toArray(children) as ReactElement<IStepProps>[];
   }, [children]);
-  const names: Readonly<string[]> = useMemo(
-    () =>
-      stepChildren.map((child) => {
-        return child.props.stepName;
-      }),
-    [stepChildren]
-  );
+  const getStepNames = (
+    children: ReactElement<IStepProps>[],
+    stepNames: string[] = []
+  ) => {
+    if (children.length < 1) return [];
+    children.forEach((child) => {
+      if (!isValidElement(child)) {
+        return;
+      }
+
+      if (child.type === Step) {
+        stepNames.push(child.props.stepName);
+        getStepNames(
+          Children.toArray(child.props.children) as ReactElement<IStepProps>[],
+          stepNames
+        );
+      }
+    });
+    return stepNames;
+  };
+  const names: Readonly<string[]> = useMemo(() => {
+    return getStepNames(stepChildren);
+  }, [stepChildren]);
   const stepFieldsMemo = useMemo(
     () => stepChildren[step]?.props.fieldsForValidation || [],
     [step, stepChildren]
   );
+
   // methods
   const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
@@ -129,7 +146,7 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     }
   };
 
-  const handlePreviousStep = ()  => {
+  const handlePreviousStep = () => {
     if (historyStack.length !== 0) {
       const prevStep = historyStack[historyStack.length - 1];
       unregisterFn(stepFieldsMemo as Path<T>[]);
@@ -138,6 +155,27 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
     setHistoryStack((prevHistoryStack) => {
       return prevHistoryStack.slice(0, prevHistoryStack.length - 1);
     });
+  };
+  const handlePreviousWithTargetStep = (targetStep: string) => {
+    const targetStepIndex = names.indexOf(targetStep);
+    if (targetStepIndex < 0)
+      throw new Error('There is not step with the name of targetStep');
+    if (step < targetStepIndex) {
+      throw new Error('Target step should not be after the current step');
+    } else {
+      setStep(targetStepIndex);
+      const targetStepInHistoryStackIndex =
+        historyStack.indexOf(targetStepIndex);
+      const stepsThatShouldBeUnregister = historyStack.filter(
+        (s, i) => s !== targetStepIndex && i > targetStepInHistoryStackIndex
+      );
+      stepsThatShouldBeUnregister.forEach((s) => {
+        const stepFields = stepChildren[s].props.fieldsForValidation || [];
+        unregisterFn(stepFields as Path<T>[]);
+      });
+      unregisterFn(stepFieldsMemo as Path<T>[]);
+      setHistoryStack(historyStack.slice(0, targetStepInHistoryStackIndex + 1));
+    }
   };
   const isValidToNext = async () => {
     const isValid = await trigger(stepFieldsMemo as Path<T>[]);
@@ -154,6 +192,7 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
       value={{
         navigateToNextStep: handleNextStep,
         navigateToPreviousStep: handlePreviousStep,
+        navigateToPreviousStepWithTargetStep: handlePreviousWithTargetStep,
         registerStepperFields: register as UseFormRegister<FieldValues>,
         getStepperFieldValues: getValues as UseFormGetValues<FieldValues>,
         setStepperFieldValues: setValue as UseFormSetValue<FieldValues>,
@@ -177,12 +216,7 @@ const Step = ({ children }: IStepProps) => {
 
 const Controller = (props: Omit<ControllerProps, 'control'>) => {
   const { control } = useSmartStepper();
-  return (
-    <ReactHookFormController
-      control={control}
-      {...props}
-    />
-  );
+  return <ReactHookFormController control={control} {...props} />;
 };
 export default Object.assign(SmartStepper, {
   Step: Step,

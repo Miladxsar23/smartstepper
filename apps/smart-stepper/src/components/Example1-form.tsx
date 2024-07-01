@@ -48,13 +48,24 @@ const ExampleForm = () => {
         alignItems: 'center',
       }}
     >
-      {stepsSchema.map((s) => (
+      {stepsSchema.map((s, i) => (
         <SmartStepper.Step
           key={s.stepName}
           stepName={s.stepName}
           fieldsForValidation={s.fieldsForValidation}
         >
-          {s.component}
+          <SmartStepper.Step
+            stepName={`nestedstep-${s.stepName}`}
+            fieldsForValidation={[]}
+          >
+            <SmartStepper.Step
+              stepName={`nested-nestedstep-${s.stepName}`}
+              fieldsForValidation={[]}
+            >
+              <h1>hello</h1>
+              {s.component}
+            </SmartStepper.Step>
+          </SmartStepper.Step>
         </SmartStepper.Step>
       ))}
     </SmartStepper>

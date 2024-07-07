@@ -1,7 +1,6 @@
 {
-  "name": "@smartstepper",
-  "private": true,
-  "description": "A React component for creating multi-step forms with validation and navigation control",
+  "name": "smartstepper",
+  "description": "SmartStepper is a powerful React component that simplifies the creation of multi-step forms with state management, validation, and a flexible UI approach. It utilizes a state machine concept to manage step transitions, ensuring a smooth and controlled user experience",
   "version": "1.0.0",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -17,12 +16,10 @@
   "keywords": [
     "next",
     "react",
-    "form",
     "multi-step",
     "validation",
     "stepper",
-    "react stepper",
-    "navigation"
+    "react stepper"
   ],
   "dependencies": {
     "react-hook-form": "^7.48.2",

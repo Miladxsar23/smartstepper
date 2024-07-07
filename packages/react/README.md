@@ -34,7 +34,7 @@
 **Installation**
 
 ```bash
-npm install @smartstepper/core
+npm install smartstepper
 ```
 
 **Basic Usage**
@@ -42,7 +42,7 @@ npm install @smartstepper/core
 1. **Import necessary components:**
 
    ```javascript
-   import { SmartStepper, TSmartStepperSchema } from '@smartstepper/core';
+   import { SmartStepper, TSmartStepperSchema } from 'smartstepper';
    import * as Yup from 'yup'; // Or your preferred schema library
    import Step1 from './Step1';
    import Step2 from './Step2';

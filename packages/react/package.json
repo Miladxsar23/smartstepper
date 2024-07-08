@@ -1,7 +1,7 @@
 {
   "name": "smartstepper",
   "description": "SmartStepper is a powerful React component that simplifies the creation of multi-step forms with state management, validation, and a flexible UI approach. It utilizes a state machine concept to manage step transitions, ensuring a smooth and controlled user experience",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",
   "author": {

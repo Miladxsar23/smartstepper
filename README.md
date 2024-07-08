@@ -52,12 +52,12 @@ npm install smartstepper
 2. **Define your step schema:**
 
    ```javascript
-   const step1Schema = Yup.object().shape({
+   const validationSchema = Yup.object().shape({
        firstName: Yup.string().required('First name is required'),
        lastName: Yup.string().required('Last name is required'),
    });
 
-   const stepsSchema: TSmartStepperSchema<keyof InferType<typeof step1Schema>> = [
+   const stepsSchema: TSmartStepperSchema<keyof InferType<typeof validationSchema>> = [
        {
            stepName: 'step1',
            fieldsForValidation: ['firstName', 'lastName'],
@@ -79,7 +79,7 @@ npm install smartstepper
      return (
        <SmartStepper
          onSubmit={onSubmit}
-         resolver={yupResolver(step1Schema)} // Or your validation resolver
+         resolver={yupResolver(validationSchema)} // Or your validation resolver
          // ... other SmartStepper props
        >
          {stepsSchema.map((step) => (

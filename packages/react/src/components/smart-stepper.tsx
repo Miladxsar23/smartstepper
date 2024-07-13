@@ -211,7 +211,7 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
   );
 };
 const Step = ({ children }: IStepProps) => {
-  return children;
+  return <>{children}</>;
 };
 
 const Controller = (props: Omit<ControllerProps, 'control'>) => {

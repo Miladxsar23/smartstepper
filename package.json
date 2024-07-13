@@ -1,6 +1,6 @@
 {
   "name": "@smart-stepper/source",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "license": "MIT",
   "workspaces": [
     "packages/react"

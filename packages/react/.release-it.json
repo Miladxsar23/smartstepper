@@ -1,0 +1,7 @@
+{
+  "plugin": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits"
+    }
+  }
+}

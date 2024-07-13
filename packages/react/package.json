@@ -4,6 +4,12 @@
   "version": "1.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "scripts": {
+    "release": "release-it"
+  },
+  "release-it": {
+    "git": false
+  },
   "author": {
     "name": "Milad shirian dehkordi",
     "email": "milad.xsar72@gmail.com"

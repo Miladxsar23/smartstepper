@@ -18,14 +18,18 @@
     "type": "git",
     "url": "https://github.com/Miladxsar23/smartstepper"
   },
+  "bugs": {
+    "url": "https://github.com/Miladxsar23/smartstepper/issues",
+    "email": "milad.xsar72@gmail.com"
+  },
   "license": "MIT",
   "keywords": [
-    "next",
-    "react",
-    "multi-step",
-    "validation",
-    "stepper",
-    "react stepper"
+    "multi step",
+    "react stepper",
+    "react state machine",
+    "smart stepper",
+    "smartstepper",
+    "react multi step form"
   ],
   "dependencies": {
     "react-hook-form": "^7.48.2",

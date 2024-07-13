@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "license": "MIT",
   "workspaces": [
-    "packages/react"
+    "dist/packages/react"
   ],
   "scripts": {
     "release": "npm run release --workspaces && release-it"

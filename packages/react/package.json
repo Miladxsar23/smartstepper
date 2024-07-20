@@ -24,12 +24,16 @@
   },
   "license": "MIT",
   "keywords": [
-    "multi step",
+    "react",
+    "next js",
+    "multi step form",
     "react stepper",
     "react state machine",
     "smart stepper",
     "smartstepper",
-    "react multi step form"
+    "react multi step form",
+    "react smart stepper",
+    "stepper"
   ],
   "dependencies": {
     "react-hook-form": "^7.48.2"

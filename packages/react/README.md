@@ -1,4 +1,4 @@
-**SmartStepper: A State Machine-Driven Multi-Step Form Component for React**
+**smart-stepper: A State Machine-Driven Multi-Step Form Component for React**
 
 **Introduction**
 

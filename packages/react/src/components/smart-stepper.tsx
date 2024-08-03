@@ -174,7 +174,7 @@ const SmartStepper = <T extends FieldValues = FieldValues>({
         unregisterFn(stepFields as Path<T>[]);
       });
       unregisterFn(stepFieldsMemo as Path<T>[]);
-      setHistoryStack(historyStack.slice(0, targetStepInHistoryStackIndex + 1));
+      setHistoryStack(historyStack.slice(0, targetStepInHistoryStackIndex));
     }
   };
   const isValidToNext = async () => {

@@ -24,13 +24,9 @@
   },
   "license": "MIT",
   "keywords": [
-    "react",
-    "next js",
     "multi step form",
     "react stepper",
-    "react state machine",
     "smart stepper",
-    "smartstepper",
     "react multi step form",
     "react smart stepper",
     "stepper"

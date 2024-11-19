@@ -1,10 +1,8 @@
-
-
-# SmartStepper: A State Machine-Driven Multi-Step Form Component for React
+# smart-stepper
 
 **Introduction**
 
-`SmartStepper` is a powerful React component that simplifies the creation of multi-step forms with state management, validation, and a flexible UI approach. It utilizes a state machine concept to manage step transitions, ensuring a smooth and controlled user experience.
+`smart-stepper` is a powerful React component that simplifies the creation of multi-step forms with state management, validation, and a flexible UI approach. It utilizes a state machine concept to manage step transitions, ensuring a smooth and controlled user experience.
 
 **Key Features**
 
@@ -100,22 +98,22 @@ npm install smartstepper
 
 - **Customizing UI:** You can completely customize the UI of each step by creating your own step components that render the desired content. The stepper itself handles state management and navigation, allowing you to focus on building step-specific UI elements.
 - **Nested Steps:** To create nested step structures, simply render `SmartStepper.Step` components within other step components. This enables you to organize complex forms with hierarchical relationships between steps.
-- **Unregistering Fields:** `SmartStepper` automatically unregisters form fields when navigating to a previous step. This prevents issues with stale data.
+- **Unregistering Fields:** `smart-stepper` automatically unregisters form fields when navigating to a previous step. This prevents issues with stale data.
 
-**SmartStepper Context and React Hook Form Integration**
+**smart-stepper Context and React Hook Form Integration**
 
-The `SmartStepper` component utilizes React Context to provide methods and form state to child components (steps) for interaction with the stepper functionality. Here's a breakdown of the context values and their relation to React Hook Form integration:
+The `smart-stepper` component utilizes React Context to provide methods and form state to child components (steps) for interaction with the stepper functionality. Here's a breakdown of the context values and their relation to React Hook Form integration:
 
-| **Function**                                | **Description**                                                                                                          |
-|---------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| `navigateToNextStep`                        | Triggers navigation to the next step in the sequence.                                                                    |
-| `navigateToPreviousStep`                    | Triggers navigation to the previous step in the history stack.                                                           |
-| `navigateToPreviousStepWithTargetStep`      | Allows navigation to a specific target step within the history stack.                                                    |
-| `registerStepperFields`                     | **React Hook Form integration:** A wrapper around `useForm().register` for registering form fields for validation.       |
-| `getStepperFieldValues`                     | **React Hook Form integration:** A wrapper around `useForm().getValues` for retrieving current values of form fields.    |
-| `setStepperFieldValues`                     | **React Hook Form integration:** A wrapper around `useForm().setValue` for updating specific form field values.          |
-| `stepperFieldResetter`                      | **React Hook Form integration:** A wrapper around `useForm().reset` for resetting the entire form state.                 |
-| `canNavigateToNextStep`                     | **React Hook Form integration:** Triggers validation for the current step's fields, returns a Promise resolving to `true` if validation passes.  |
-| `control`                                   | **React Hook Form integration:** The `control` object provided by `useForm`, allowing additional features within steps.   |
+| **Function**                           | **Description**                                                                                                                                 |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `navigateToNextStep`                   | Triggers navigation to the next step in the sequence.                                                                                           |
+| `navigateToPreviousStep`               | Triggers navigation to the previous step in the history stack.                                                                                  |
+| `navigateToPreviousStepWithTargetStep` | Allows navigation to a specific target step within the history stack.                                                                           |
+| `registerStepperFields`                | **React Hook Form integration:** A wrapper around `useForm().register` for registering form fields for validation.                              |
+| `getStepperFieldValues`                | **React Hook Form integration:** A wrapper around `useForm().getValues` for retrieving current values of form fields.                           |
+| `setStepperFieldValues`                | **React Hook Form integration:** A wrapper around `useForm().setValue` for updating specific form field values.                                 |
+| `stepperFieldResetter`                 | **React Hook Form integration:** A wrapper around `useForm().reset` for resetting the entire form state.                                        |
+| `canNavigateToNextStep`                | **React Hook Form integration:** Triggers validation for the current step's fields, returns a Promise resolving to `true` if validation passes. |
+| `control`                              | **React Hook Form integration:** The `control` object provided by `useForm`, allowing additional features within steps.                         |
 
-By effectively utilizing these context values, step components can interact with the form state, trigger validation, navigate between steps, and manage field values seamlessly within the `SmartStepper` framework.
+By effectively utilizing these context values, step components can interact with the form state, trigger validation, navigate between steps, and manage field values seamlessly within the `smart-stepper` framework.

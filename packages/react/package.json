@@ -23,16 +23,28 @@
     "email": "milad.xsar72@gmail.com"
   },
   "license": "MIT",
-  "keywords": [
-    "react",
-    "component",
-    "multi step form",
-    "react stepper",
-    "smart stepper",
-    "react multi step form",
-    "react smart stepper",
-    "stepper"
-  ],
+"keywords": [
+  "react-stepper",
+  "multi-step-form",
+  "react-hook-form-integration",
+  "form-step-validation",
+  "stepper-with-validation",
+  "react-form-library",
+  "stepper-component",
+  "nested-steps",
+  "react-form-validation",
+  "smart-stepper",
+  "dynamic-form-builder",
+  "state-machine-stepper",
+  "customizable-form-stepper",
+  "react-yup-validation",
+  "controlled-stepper",
+  "form-wizard",
+  "step-navigation",
+  "form-unregister-fields",
+  "react-custom-stepper",
+  "multi-layered-forms"
+],
   "dependencies": {
     "react-hook-form": "^7.48.2"
   },

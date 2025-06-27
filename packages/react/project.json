@@ -23,7 +23,14 @@
       ],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/react"
+        "outputPath": "dist/packages/react",
+        "main": "index.js",
+        "module": "index.js",
+        "types": "index.d.ts",
+        "assets": [
+          "README.md",
+          "package.json"
+        ]
       },
       "configurations": {
         "development": {

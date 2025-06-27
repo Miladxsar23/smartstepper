@@ -1,63 +1,69 @@
 {
-  "name": "smartstepper",
-  "description": "smart-stepper is a powerful React component that simplifies the creation of multi-step forms with state management, validation, and a flexible UI approach. It utilizes a state machine concept to manage step transitions, ensuring a smooth and controlled user experience",
-  "version": "1.0.7",
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "scripts": {
-    "release": "release-it"
-  },
-  "release-it": {
-    "git": false
-  },
-  "author": {
-    "name": "Milad shirian dehkordi",
-    "email": "milad.xsar72@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Miladxsar23/smartstepper"
-  },
-  "bugs": {
-    "url": "https://github.com/Miladxsar23/smartstepper/issues",
-    "email": "milad.xsar72@gmail.com"
-  },
-  "license": "MIT",
-"keywords": [
-  "react-stepper",
-  "multi-step-form",
-  "react-hook-form-integration",
-  "form-step-validation",
-  "stepper-with-validation",
-  "react-form-library",
-  "stepper-component",
-  "nested-steps",
-  "react-form-validation",
-  "smart-stepper",
-  "dynamic-form-builder",
-  "state-machine-stepper",
-  "customizable-form-stepper",
-  "react-yup-validation",
-  "controlled-stepper",
-  "form-wizard",
-  "step-navigation",
-  "form-unregister-fields",
-  "react-custom-stepper",
-  "multi-layered-forms"
-],
-  "dependencies": {
-    "react-hook-form": "^7.48.2"
-  },
-  "devDependencies": {
-    "react": "^18.2.0"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
-  "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
-    }
-  }
+    "name": "smartstepper",
+    "description": "SmartStepper is a modern, customizable React stepper component for building multi-step forms, wizards, and onboarding flows. Integrates with react-hook-form, supports Yup/Zod validation, and offers a flexible, config-driven API for dynamic forms.",
+    "version": "2.0.0",
+    "main": "./index.js",
+    "module": "./index.js",
+    "types": "./index.d.ts",
+    "scripts": {
+        "release": "release-it"
+    },
+    "release-it": {
+        "git": false
+    },
+    "author": {
+        "name": "Milad shirian dehkordi",
+        "email": "milad.xsar72@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Miladxsar23/smartstepper"
+    },
+    "bugs": {
+        "url": "https://github.com/Miladxsar23/smartstepper/issues",
+        "email": "milad.xsar72@gmail.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react",
+        "react-stepper",
+        "stepper",
+        "multi-step-form",
+        "form-wizard",
+        "wizard",
+        "onboarding",
+        "react-hook-form",
+        "form-validation",
+        "yup",
+        "zod",
+        "dynamic-form",
+        "form-builder",
+        "react-form",
+        "react-component",
+        "step-navigation",
+        "controlled-stepper",
+        "customizable-stepper",
+        "multi-step-wizard",
+        "react-form-library",
+        "form-unregister-fields",
+        "state-machine-stepper",
+        "checkout-flow",
+        "user-onboarding"
+    ],
+    "dependencies": {
+        "react-hook-form": "^7.48.2"
+    },
+    "peerDependencies": {
+        "react": "^18.2.0",
+        "yup": "^1.6.1",
+        "zod": "^3.25.67"
+    },
+    "exports": {
+        ".": {
+            "import": "./index.js",
+            "require": "./index.js",
+            "types": "./index.d.ts"
+        }
+    },
+    "sideEffects": false
 }

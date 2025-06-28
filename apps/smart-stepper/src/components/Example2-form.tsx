@@ -4,7 +4,7 @@ import {
   useSmartStepper,
   type FieldValues,
   type SmartStepperConfig,
-} from '@smartstepper';
+} from 'smartstepper';
 import * as yup from 'yup';
 
 // UserInfoStep.tsx

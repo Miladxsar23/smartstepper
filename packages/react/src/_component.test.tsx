@@ -40,7 +40,7 @@ describe('SmartStepper', () => {
   };
 
   const makeConfig = (onSubmit = jest.fn()) => ({
-    orchesration: {
+    orchestration: {
       stepA: { next: () => 'stepB' },
       stepB: { previous: () => 'stepA' },
     },
@@ -182,7 +182,7 @@ describe('SmartStepper', () => {
 
   it('handles missing next/previous gracefully', async () => {
     const config = makeConfig();
-    config.orchesration.stepA.next = () => undefined as unknown as string;
+    config.orchestration.stepA.next = () => undefined as unknown as string;
     render(<SmartStepper config={config} />);
     fireEvent.change(screen.getByLabelText('Field A'), {
       target: { value: 'foo' },

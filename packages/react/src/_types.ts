@@ -1,9 +1,9 @@
 import type { HTMLAttributes, ReactElement } from 'react';
 import type {
-  Control, FieldValues, Resolver, UseControllerProps, UseFormGetValues,
-  UseFormRegister,
-  UseFormReset,
-  UseFormSetValue
+    Control, FieldValues, Resolver, UseControllerProps, UseFormGetValues,
+    UseFormRegister,
+    UseFormReset,
+    UseFormSetValue
 } from 'react-hook-form';
 import type { AnyObjectSchema } from 'yup';
 import type { ZodSchema } from 'zod';
@@ -17,7 +17,7 @@ export interface SmartStepperConfig<S extends string> {
    * Logic for determining navigation between steps.
    * Each step can define its own next/previous navigation logic.
    */
-  orchesration: {
+  orchestration: {
     [s in S]: {
       /**
        * Function to determine the next step based on form data.

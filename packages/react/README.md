@@ -30,9 +30,9 @@ Example:
 - No need to define steps as children or schema arrays.
 - **Navigation functions (`next` and `previous`) receive the current form values as their argument and should return the name of the next or previous step.**
 
-#### Example of `orchesration` with arguments:
+#### Example of `orchestration` with arguments:
 ```js
-orchesration: {
+orchestration: {
   user: { 
     next: (data) => data.fullName ? 'address' : 'user' 
   },
@@ -123,7 +123,7 @@ const UserInfoStep = () => {
 ```javascript
 const config: SmartStepperConfig<'user' | 'address' | 'confirm'> = {
   start: 'user',
-  orchesration: {
+  orchestration: {
     user: { 
       next: (data) => data.fullName ? 'address' : 'user' 
     },

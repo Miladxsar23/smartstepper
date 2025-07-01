@@ -117,7 +117,7 @@ const CardWrapper = ({
 const MyMultiStepForm = () => {
   const config: SmartStepperConfig<'user' | 'address' | 'confirm'> = {
     start: 'user',
-    orchesration: {
+    orchestration: {
       user: { next: () => 'address' },
       address: {
         next: (data: FieldValues) => 'confirm',

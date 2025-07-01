@@ -11,8 +11,10 @@ Thank you for your interest in contributing to **SmartStepper**! Your help is gr
   - [Suggesting Features](#suggesting-features)
   - [Project Setup](#project-setup)
   - [Development Workflow](#development-workflow)
+  - [Branching Model \& Pull Requests](#branching-model--pull-requests)
+  - [Branch Protection](#branch-protection)
   - [Coding Standards](#coding-standards)
-  - [Submitting Pull Requests](#submitting-pull-requests)
+  - [Releasing New Versions](#releasing-new-versions)
   - [Community Guidelines](#community-guidelines)
   - [License](#license)
   - [Acknowledgements](#acknowledgements)
@@ -56,24 +58,37 @@ If you have questions or need help, please open a [GitHub Discussion](https://gi
    ```
 
 ## Development Workflow
-- Create a feature or fix branch from `master` (e.g., `feature/your-feature` or `fix/your-bug`).
+- Create a feature or fix branch from the `develop` branch (e.g., `feature/your-feature` or `fix/your-bug`).
 - Make your changes and ensure all tests pass.
-- Submit a pull request and request a review.
+- Commit your changes using the [Conventional Commits](https://www.conventionalcommits.org/) format.
+- Push your branch to your fork.
+- Open a Pull Request (PR) against the `develop` branch of the main repository.
+- Fill out the PR template and describe your changes clearly.
+- All code must be merged via Pull Requests; direct pushes to protected branches are not allowed.
 - One or more maintainers will review your PR. Please respond to feedback promptly.
+
+## Branching Model & Pull Requests
+- The `develop` branch is the main branch for ongoing development.
+- The `main` branch is reserved for stable, production-ready releases.
+- All features, bugfixes, and improvements must be developed in separate branches created from `develop`.
+- Pull Requests are required for all changes. No direct commits to `develop` or `main` are permitted.
+
+## Branch Protection
+- Branch protection rules are enforced on `develop` and `main` branches.
+- All PRs must pass CI checks (tests, linting, etc.) before merging.
+- At least one code review approval is required before merging.
+- Force pushes and deletions of protected branches are disabled.
 
 ## Coding Standards
 - Use [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) for code formatting and linting.
 - Write clear, concise, and well-documented code.
-- Use descriptive commit messages (e.g., `fix: correct step validation logic`).
 - Add or update tests for new features and bug fixes.
 
-## Submitting Pull Requests
-1. Create a new branch for your feature or bugfix.
-2. Make your changes and commit them.
-3. Push your branch to your fork.
-4. Open a pull request against the `master` branch of the main repository.
-5. Fill out the PR template and describe your changes clearly.
-6. Ensure all checks pass (CI, tests, linting).
+## Releasing New Versions
+- New versions are published to npm from the `main` branch.
+- Only maintainers can publish releases.
+- Ensure the changelog is updated and all changes are merged into `main` via Pull Request before publishing.
+- Use the appropriate npm commands to publish the package (e.g., `npm publish`).
 
 ## Community Guidelines
 - Be respectful and inclusive.
@@ -89,6 +104,7 @@ Thanks to all contributors and the open source community for making SmartStepper
 
 ## Commit Message Guidelines
 We use [Conventional Commits](https://www.conventionalcommits.org/) for commit messages (e.g., `feat: add new stepper animation`).
+- All commits must follow this format. PRs with non-conforming commits may be rejected.
 
 ## Templates
 Please use the provided issue and pull request templates to help us address your contribution efficiently.

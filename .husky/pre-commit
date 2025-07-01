@@ -1,0 +1,2 @@
+npx nx lint react
+npx nx test react

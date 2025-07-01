@@ -1,10 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-
 import MyMultiStepForm from '../components/Example2-form';
+import styles from './app.module.css';
 
 export function App() {
   return (
-    <div>
+    <div className={styles.app}>
       <MyMultiStepForm />
     </div>
   );

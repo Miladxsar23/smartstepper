@@ -1,9 +1,7 @@
 import {
-  cloneElement,
-  isValidElement,
   useMemo,
   useState,
-  type FormEvent,
+  type FormEvent
 } from 'react';
 import {
   useForm,
@@ -14,6 +12,7 @@ import {
   type UseFormRegister,
   type UseFormReset,
   type UseFormSetValue,
+  type UseFormWatch,
 } from 'react-hook-form';
 import SmartStepperContext from './_context';
 import { SmartStepperProps } from './_types';
@@ -22,7 +21,7 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
   const [step, setStep] = useState<S>(config.start);
   const [historyStack, setHistoryStack] = useState<S[]>([]);
 
-  const { control, trigger, getValues, setValue, register, unregister, reset } =
+  const { control, trigger, getValues, setValue, register, unregister, reset, watch } =
     useForm({
       resolver: async (data) => {
         const current = config.validations[step];
@@ -152,11 +151,6 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
   };
 
   const content = config.views[step]?.component;
-  const wrapper = config.views[step]?.wrapper;
-  const wrappedContent =
-    wrapper && isValidElement(wrapper)
-      ? cloneElement(wrapper, {}, content)
-      : content;
   return (
     <SmartStepperContext.Provider
       value={{
@@ -168,9 +162,10 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
         stepperFieldResetter: reset as UseFormReset<FieldValues>,
         canNavigateToNextStep: async () => trigger(currentStepSchemaFields),
         control: control as Control<FieldValues>,
+        watchStepperFieldValues: watch as UseFormWatch<FieldValues>,
       }}
     >
-      <form onSubmit={handleSubmit}>{wrappedContent}</form>
+      <form onSubmit={handleSubmit}>{content}</form>
     </SmartStepperContext.Provider>
   );
 };

@@ -1,9 +1,14 @@
 import type { HTMLAttributes, ReactElement } from 'react';
 import type {
-    Control, FieldValues, Resolver, UseControllerProps, UseFormGetValues,
-    UseFormRegister,
-    UseFormReset,
-    UseFormSetValue
+  Control,
+  FieldValues,
+  Resolver,
+  UseControllerProps,
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormReset,
+  UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 import type { AnyObjectSchema } from 'yup';
 import type { ZodSchema } from 'zod';
@@ -64,10 +69,6 @@ export interface SmartStepperConfig<S extends string> {
        * The React component to render for this step.
        */
       component: ReactElement;
-      /**
-       * Optional wrapper React element for the step.
-       */
-      wrapper?: ReactElement;
     };
   };
   /**
@@ -130,6 +131,10 @@ export interface ISmartStepperContextValue<T extends FieldValues> {
    * React Hook Form control object for the stepper.
    */
   control: Control<T, T>;
+  /**
+   * Watch values for the stepper fields.
+   */
+  watchStepperFieldValues: UseFormWatch<T>;
 }
 
 /**

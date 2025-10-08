@@ -57,7 +57,7 @@ orchestration: {
 - Provides a `useSmartStepper` hook for step components to access navigation methods and form control:
   - `navigateToNextStep`: Moves to the next step in the sequence. Optionally accepts a target step name and unregister flag.
   - `navigateToPreviousStep`: Moves to the previous step in the history.
-  - `registerStepperFields`, `getStepperFieldValues`, `setStepperFieldValues`, `stepperFieldResetter`, `canNavigateToNextStep`, `control` for React Hook Form integration.
+  - `registerStepperFields`, `getStepperFieldValues`, `setStepperFieldValues`, `stepperFieldResetter`, `canNavigateToNextStep`, `control`, `watchStepperFieldValues` for React Hook Form integration.
 
 ### Validation Integration with React Hook Form
 - Seamlessly integrates with `react-hook-form` for field-level validation within each step.
@@ -197,6 +197,7 @@ The `SmartStepper` component utilizes React Context to provide methods and form 
 | `stepperFieldResetter`           | **React Hook Form integration:** A wrapper around `useForm().reset` for resetting the entire form state.          |
 | `canNavigateToNextStep`          | **React Hook Form integration:** Triggers validation for the current step's fields, returns a Promise of validity.|
 | `control`                        | **React Hook Form integration:** The `control` object provided by `useForm`, for use with `Controller` or `useController`.        |
+| `watchStepperFieldValues`        | **React Hook Form integration:** A wrapper around `useForm().watch` for observing all or specific field values in real time.      |
 | `useSmartStepper`                | Custom hook to access the SmartStepper context in your step components.                                           |
 | `useSmartStepperController`      | Custom hook to create a react-hook-form controller bound to the SmartStepper's form control.                      |
 

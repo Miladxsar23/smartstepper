@@ -69,6 +69,20 @@ export interface SmartStepperConfig<S extends string> {
        * The React component to render for this step.
        */
       component: ReactElement;
+      /**
+       * Optional wrapper for the step.
+       * Can be either:
+       * - A React element (legacy, uses cloneElement - not recommended for React 19)
+       * - A render function that receives children and returns a wrapped element (recommended)
+       *
+       * @example
+       * // Recommended (React 19 compatible):
+       * wrapper: (children) => <Card>{children}</Card>
+       *
+       * // Legacy (uses cloneElement):
+       * wrapper: <Card />
+       */
+      wrapper?: ReactElement | ((children: ReactElement) => ReactElement);
     };
   };
   /**

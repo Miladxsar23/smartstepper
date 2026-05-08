@@ -1,7 +1,9 @@
 import {
+  cloneElement,
+  isValidElement,
   useMemo,
   useState,
-  type FormEvent
+  type FormEvent,
 } from 'react';
 import {
   useForm,
@@ -21,83 +23,90 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
   const [step, setStep] = useState<S>(config.start);
   const [historyStack, setHistoryStack] = useState<S[]>([]);
 
-  const { control, trigger, getValues, setValue, register, unregister, reset, watch } =
-    useForm({
-      resolver: async (data) => {
-        const current = config.validations[step];
-        const schema = current.schema;
-        // Yup duck-typing
-        if (
-          schema &&
-          typeof (schema as { validate?: unknown }).validate === 'function'
-        ) {
-          return (
-            schema as {
-              validate: (data: unknown, opts: unknown) => Promise<FieldValues>;
-            }
-          )
-            .validate(data, { abortEarly: false })
-            .then((values: FieldValues) => ({ values, errors: {} }))
-            .catch((err: unknown) => {
-              // Minimal Yup error type
-              const yupErr = err as {
-                inner: Array<{ path: string; message: string }>;
-              };
-              return {
-                values: {},
-                errors: (yupErr.inner || []).reduce(
-                  (
-                    acc: Record<string, { type: string; message: string }>,
-                    e: { path: string; message: string }
-                  ) => {
-                    acc[e.path] = { type: 'manual', message: e.message };
-                    return acc;
-                  },
-                  {}
-                ),
-              };
-            });
-        }
-        // Zod duck-typing
-        if (
-          schema &&
-          typeof (schema as { safeParse?: unknown }).safeParse === 'function'
-        ) {
-          const result = (
-            schema as {
-              safeParse: (data: unknown) => {
-                success: boolean;
-                data?: FieldValues;
-                error?: {
-                  errors: Array<{ path: (string | number)[]; message: string }>;
-                };
-              };
-            }
-          ).safeParse(data);
-          if (result.success) {
-            return { values: result.data as FieldValues, errors: {} };
-          } else {
-            const errors: Record<string, { type: string; message: string }> =
-              {};
-            (result.error?.errors || []).forEach(
-              (e: { path: (string | number)[]; message: string }) => {
-                if (e.path && e.path.length > 0) {
-                  errors[e.path.join('.')] = {
-                    type: 'manual',
-                    message: e.message,
-                  };
-                }
-              }
-            );
-            return { values: {}, errors };
+  const {
+    control,
+    trigger,
+    getValues,
+    setValue,
+    register,
+    unregister,
+    reset,
+    watch,
+  } = useForm({
+    resolver: async (data) => {
+      const current = config.validations[step];
+      const schema = current.schema;
+      // Yup duck-typing
+      if (
+        schema &&
+        typeof (schema as { validate?: unknown }).validate === 'function'
+      ) {
+        return (
+          schema as {
+            validate: (data: unknown, opts: unknown) => Promise<FieldValues>;
           }
+        )
+          .validate(data, { abortEarly: false })
+          .then((values: FieldValues) => ({ values, errors: {} }))
+          .catch((err: unknown) => {
+            // Minimal Yup error type
+            const yupErr = err as {
+              inner: Array<{ path: string; message: string }>;
+            };
+            return {
+              values: {},
+              errors: (yupErr.inner || []).reduce(
+                (
+                  acc: Record<string, { type: string; message: string }>,
+                  e: { path: string; message: string }
+                ) => {
+                  acc[e.path] = { type: 'manual', message: e.message };
+                  return acc;
+                },
+                {}
+              ),
+            };
+          });
+      }
+      // Zod duck-typing
+      if (
+        schema &&
+        typeof (schema as { safeParse?: unknown }).safeParse === 'function'
+      ) {
+        const result = (
+          schema as {
+            safeParse: (data: unknown) => {
+              success: boolean;
+              data?: FieldValues;
+              error?: {
+                errors: Array<{ path: (string | number)[]; message: string }>;
+              };
+            };
+          }
+        ).safeParse(data);
+        if (result.success) {
+          return { values: result.data as FieldValues, errors: {} };
+        } else {
+          const errors: Record<string, { type: string; message: string }> = {};
+          (result.error?.errors || []).forEach(
+            (e: { path: (string | number)[]; message: string }) => {
+              if (e.path && e.path.length > 0) {
+                errors[e.path.join('.')] = {
+                  type: 'manual',
+                  message: e.message,
+                };
+              }
+            }
+          );
+          return { values: {}, errors };
         }
-        // fallback
-        return { values: {}, errors: {} };
-      },
-      defaultValues: config.validations[step].defaultValues,
-      mode: 'onBlur',
-    });
+      }
+      // fallback
+      return { values: {}, errors: {} };
+    },
+    defaultValues: config.validations[step].defaultValues,
+    mode: 'onBlur',
+  });
 
   const currentStepSchemaFields = useMemo(() => {
     const schema = config.validations[step].schema;
@@ -151,6 +160,16 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
   };
 
   const content = config.views[step]?.component;
+  const wrapper = config.views[step]?.wrapper;
+
+  // Support both function wrappers (React 19 compatible) and element wrappers (legacy)
+  const wrappedContent = wrapper
+    ? typeof wrapper === 'function'
+      ? wrapper(content) // ✅ React 19 compatible: render function
+      : isValidElement(wrapper)
+      ? cloneElement(wrapper, {}, content) // ⚠️ Legacy: cloneElement (not recommended for React 19)
+      : content
+    : content;
   return (
     <SmartStepperContext.Provider
       value={{
@@ -165,7 +184,7 @@ const SmartStepper = <S extends string>({ config }: SmartStepperProps<S>) => {
         watchStepperFieldValues: watch as UseFormWatch<FieldValues>,
       }}
     >
-      <form onSubmit={handleSubmit}>{content}</form>
+      <form onSubmit={handleSubmit}>{wrappedContent}</form>
     </SmartStepperContext.Provider>
   );
 };
